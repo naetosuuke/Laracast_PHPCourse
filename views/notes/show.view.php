@@ -10,15 +10,22 @@
     <p>
       <?= htmlspecialchars($note['body']);
       //htmlspecialcharsメソッドに入れることで、htmlタグを適用せず、平文として表示させる　
-      //そうしないとデータにHTMLタグを仕込まれ、デカ文字やJS呼び出しを食らうことになる
-      //example... <h1 style="font-size:100px">Ah ah ah...</h1><script>alert('Hi FROM JS')</script>
       ?></p>
 
-    <form class="mt-6" method="POST"> <!--削除ボタン　_method => DELETE, id => id情報　をPOSTで返している-->
+    <footer class="mt-6">
+        <a href="note/edit?id=<?= $note['id']; ?>" 
+          class="rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+          Edit
+      </a>
+    </footer>
+
+    <!-- <form class="mt-6" method="POST">                         削除ボタン　_method => DELETE, id => id情報　をPOSTで返している
       <input type="hidden" name="_method" value="DELETE"> 
       <input type="hidden" name="id" value="<?= $note['id']?>">
       <button class="text-sm text-red-500">Delete</button>
     </form> 
-      
+       -->
+
   </main>
   <?php require base_path('views/partials/footer.php'); ?>
