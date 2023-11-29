@@ -3,25 +3,30 @@
 use Core\App;
 use Core\Database;
 use Core\Validator;
+use Core\Authenticator;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+$db = App::resolve(Database::class);
+
+$errors = [];
+
 // varidation
-if (! Validator::email($email)){
+if (!Validator::email($email)){
     $errors['email'] = 'Please provide a valid email address.';
 }
-if (! Validator::string($password, 7, 255)){ //最小7, 最大255字
+if (!Validator::string($password, 7, 255)){ //最小7, 最大255字
     $errors['password'] = 'Please provide a passwordat least 7 and up to 255 chars.';
 }
 if (! empty($errors)){
     return view('registration/create.view.php', [
-        'errors => $errors'
+        'errors' => $errors
     ]);
 }
 
 //DBに接続、重複を検索
-$db = App::resolve(Database::class);
+
 $user = $db->query('select * from users where email = :email', [
     'email' => $email
 ])->find(); 
@@ -36,9 +41,9 @@ if ($user) { //DBに登録があれば、ログイン画面にリダイレクト
         'password' => password_hash($password, PASSWORD_BCRYPT) // 絶対に平文でパスを送らないこと
     ]);
 
-    $_SESSION['user'] = [
-        'email' => $email
-    ];
+    $auth = new Authenticator;
+    $auth->login($user);
+
     header('location: /');
     exit();
 }

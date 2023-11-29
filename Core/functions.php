@@ -39,3 +39,14 @@ function view($path, $attributes = [])
     extract($attributes); //スコープ内に連想配列を変数としてインポートする
     require base_path('views/' . $path); 
 }
+
+function redirect($path) 
+{
+    header("location: {$path}");
+    exit();
+}
+
+function old($key, $default = '') // 
+{
+    return Core\Session::get('old')['$key'] ?? $default;
+}

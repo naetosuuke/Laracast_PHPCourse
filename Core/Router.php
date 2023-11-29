@@ -3,9 +3,7 @@
 namespace Core;
 
 use Core\Middleware\Middleware;
-
-use Core\Middleware\Auth;
-use Core\Middleware\Guest;
+use PDO;
 
 class Router
 {
@@ -56,8 +54,6 @@ class Router
         return $this;
     }
 
-
-
     public function route($uri, $method) //routesとuri,またリクエストメソッドが合致すればページ表示、しなければ404
     {
         foreach ($this->routes as $route) {
@@ -65,17 +61,20 @@ class Router
 
                 //middlewareが値を持つページにアクセスする際は、DIコンテナを利用して認証状態によってリダイレクト処理がされる
                 Middleware::resolve($route['middleware']);
-
-                return require base_path($route['controller']);
+                    
+                //controllerはすべてcontrollers配下にあるので、先にパスを補完
+                return require base_path('Http/controllers/' . $route['controller']);
             }
         }
 
-
-
-
-
         $this->abort(); 
     }
+
+    public function previousUrl()
+    {
+        return $_SERVER['HTTP_REFERER'] ; //HTTPリクエストを送った時のURIが格納されてる
+    }
+
 
     protected function abort($code = 404){ //初期値 404
         http_response_code($code); //404コードを返す(クライアント側への通知)
@@ -83,13 +82,6 @@ class Router
         die();
     }
 }
-
-
-
-
-
-
-// //このファイルがルーターとして機能する
 
 
 

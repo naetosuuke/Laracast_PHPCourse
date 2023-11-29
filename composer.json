@@ -1,0 +1,16 @@
+{
+    "name": "naetos/lalacraft_php_section2",
+    "authors": [
+        {
+            "name": "naetosuuke",
+            "email": "118874380+naetosuuke@users.noreply.github.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
