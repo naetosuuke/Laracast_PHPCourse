@@ -3,7 +3,6 @@
 namespace Core;
 
 use Core\Middleware\Middleware;
-use PDO;
 
 class Router
 {
@@ -86,9 +85,3 @@ class Router
 
 
 
-
- //最初に呼び出されるページなので、routerをinvoke
-
-//$query = "select * from posts where id = :id"; //SQL文 :idと表記したところは、$idの値が渡るようになっている。
-//$posts = $db->query($query, [':id'=>$id])->fetch(); //query関数にSQL文を引数として渡し、メンバー関数のfetchAllを実行
-//dd($posts);

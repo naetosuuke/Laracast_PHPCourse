@@ -8,11 +8,14 @@ session_start();
 const BASE_PATH = __DIR__ . '/../'; // BASE_PATHは現在の1つ上のディレクトリ
 require BASE_PATH . 'vendor/autoload.php'; //composerに入ってるautoload 必ず最初にインポート
 
+
+
 // ここで設定したautoloadの仕組みは、composer　installで入手できるautoloadを用いて、上記の用事に実装できる。
 // spl_autoload_register(function ($class){ //コンパイル時、宣言されていないクラスをみつけたら名前を返す(=自動ロードのトリガー)
 //     $class = str_replace('\\', DIRECTORY_SEPARATOR, $class); // "Core\クラス名" のバックスラッシュを置換
 //     require base_path("{$class}.php"); //ここでDatabase, Responseクラスを呼び出している
 // });
+
 
 require BASE_PATH . 'Core/functions.php';
 

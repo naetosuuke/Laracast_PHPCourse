@@ -6,11 +6,21 @@
             "email": "118874380+naetosuuke@users.noreply.github.com"
         }
     ],
-    "require": {},
+    "require": {
+        "illuminate/collections": "^10.34"
+    },
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
             "Http\\": "Http/"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.26"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }
